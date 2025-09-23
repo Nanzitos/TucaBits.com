@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+terraform/.terraform.lock.hcl
+terraform/backend.tf
+terraform/ec2.tf
+terraform/ecr.tf
+terraform/provider.tf
+terraform/.terraform/terraform.tfstate
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/6.12.0/darwin_arm64/LICENSE.txt
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/6.12.0/darwin_arm64/terraform-provider-aws_v6.12.0_x5
