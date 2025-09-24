@@ -29,7 +29,7 @@ jobs:
               uses: aws-actions/amazon-ecr-login@v2.0.1
 
             - name: Build, Tag and Push image to ECR
-              runs: |
+              run: |
                 docker build -t tucabits_prod:v1.0 .
                 docker tag tucabist_prod:v1.0 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
                 docker push 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
