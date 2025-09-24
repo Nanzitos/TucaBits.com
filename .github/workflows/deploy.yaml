@@ -33,3 +33,20 @@ jobs:
                 docker build -t tucabits_prod:v1.0 .
                 docker tag tucabits_prod:v1.0 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
                 docker push 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
+    job2:
+        name: Deploy EC2
+        env:
+            INSTANCE_KEY: ${{secrets.INSTANCE_KEY}}
+            PUBLIC_IP: ${{secrets.PUBLIC_IP}}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy EC2 SSH
+              run: |
+                echo "$INSTANCE_KEY" > chave-site.pem
+                ssh -i chave-site.pem ec2-user@$PUBLIC_IP << EOF
+                    aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 502830477144.dkr.ecr.us-east-2.amazonaws.com
+                    docker pull 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
+                    docker run -d -p 80:80 --name. site 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
+                    docker ps
+                EOF
+                rm chave-site.pem
