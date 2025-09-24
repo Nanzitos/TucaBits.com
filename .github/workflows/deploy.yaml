@@ -1,0 +1,35 @@
+name: Pipeline CI/CD
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+permissions:
+    id-token: write
+    contents: read
+
+jobs:
+    job1:
+        name: Build ECR
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5.0.0
+
+            - name: "Configure AWS Credentials"
+              uses: aws-actions/configure-aws-credentials@v4.3.1
+              with:
+                role-to-assume: arn:aws:iam::502830477144:role/GitHubActionsRepoApp
+                aws-region: us-east-2
+
+            - name: Amazon ECR "Login" Action for GitHub Actions
+              uses: aws-actions/amazon-ecr-login@v2.0.1
+
+            - name: Build, Tag and Push image to ECR
+              runs: |
+                docker build -t tucabits_prod:v1.0 .
+                docker tag tucabist_prod:v1.0 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
+                docker push 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
