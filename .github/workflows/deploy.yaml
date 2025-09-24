@@ -31,5 +31,5 @@ jobs:
             - name: Build, Tag and Push image to ECR
               run: |
                 docker build -t tucabits_prod:v1.0 .
-                docker tag tucabist_prod:v1.0 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
+                docker tag tucabits_prod:v1.0 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
                 docker push 502830477144.dkr.ecr.us-east-2.amazonaws.com/tucabits_prod:v1.0
